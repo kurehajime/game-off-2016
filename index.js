@@ -89,16 +89,13 @@
        }else{
             document.getElementById("canv").addEventListener("mousedown",newGame,false)
         }
-
-        if('devicemotion' in window){
-            window.addEventListener("devicemotion",function(e){
-                var rota_r = e.rotationRate;
-                var a = (rota_r.alpha); //z方向
-                var b = (rota_r.beta); //x方向
-                var g = (rota_r.gamma); // y方向
-                console.log(e);
-            })
-        }
+        window.addEventListener("devicemotion",function(e){
+            var rota_r = e.rotationRate;
+            var a = (rota_r.alpha); //z方向
+            var b = (rota_r.beta); //x方向
+            var g = (rota_r.gamma); // y方向
+            console.log(e);
+        })
 
 
         //画像読み込み成功時
