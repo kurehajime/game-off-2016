@@ -90,9 +90,8 @@
             document.getElementById("canv").addEventListener("mousedown",newGame,false)
         }
         window.addEventListener("deviceorientation",function(e){
-            var rota_r = e.rotationRate;
-            var x = 1*(rota_r.beta); //x方向
-            var y = -1*(rota_r.gamma); // y方向
+            var x = 1*(e.beta); //x方向
+            var y = -1*(e.gamma); // y方向
             mouse_x=LEN_LONG/2+x
             mouse_y=LEN_LONG/2+y
         })
