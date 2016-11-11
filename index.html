@@ -18,13 +18,19 @@
 <meta name="twitter:description" content="PONG+BREAKOUT=PONGOUT">
 <meta name="twitter:image" content="https://kurehajime.github.io/game-off-2016/assets/ss.png">
 <head>
-    <link  rel="stylesheet" type="text/css" href="index.css">
-    <script src="index.js" defer></script>
+    <link  rel="stylesheet" type="text/css" href="index.css?000004">
+    <script src="index.js?000011" defer></script>
     <title>PONGOUT</title>
 </head>
 <body>
 <div class="center"  width="500px" >
     <canvas id="canv" width="500px" height="500px"></canvas>
+        <div>
+            <span id="gyro">
+            <img id ="gyro_btn" src="assets/axis.png" alt="axis" width="50px" height="50px"><br>
+            <span id="gyro_msg">GYRO OFF</span>
+            </span>
+        </div>
 </div>
     <audio id="player" preload="auto">
         <source src="assets/player.mp3" type="audio/mp3">
@@ -59,6 +65,6 @@
     <img src="assets/brown.png" style="display:none">
     <img src="assets/PONGOUT.png" style="display:none">
 
-    <div id="foot">made by <a href="https://github.com/kurehajime">@kurehajime</a> /sound <a href="http://maoudamashii.jokersounds.com/">maoudamashii</a></div>
+    <div id="foot">made by kurehajime /sound maoudamashii</div>
 </body>
 </html>

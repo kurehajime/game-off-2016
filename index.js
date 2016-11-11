@@ -35,7 +35,7 @@
     var COLOR_WHITE      =   "#FFFFFF";
     var img_bk=null;img_bk = new Image();img_bk.src = "assets/brown.png";
     var img_title=null;img_title = new Image();img_title.src = "assets/PONGOUT.png";
-
+    var gyro=false;
 
     //val
     var mouse_x=0
@@ -49,6 +49,10 @@
     var wait=true;
     var cycle=1;
     var isMobile=false;
+    var gyro=false;
+    var gyro_disable=false;
+    var bese_gamma=0;
+    var bese_beta=0;
 
     //status
     var status_pong={
@@ -89,13 +93,29 @@
        }else{
             document.getElementById("canv").addEventListener("mousedown",newGame,false)
         }
-        window.addEventListener("deviceorientation",function(e){
-            var x = 1*(e.beta); //x方向
-            var y = -1*(e.gamma); // y方向
-            mouse_x=LEN_LONG/2+x
-            mouse_y=LEN_LONG/2+y
-        })
 
+        window.addEventListener("deviceorientation",function(e){
+            if(gyro_disable){
+                return;
+            }
+            if(e.gamma==null){
+                document.getElementById("gyro").style.display="none";
+                gyro_disable=true;
+            }
+            if(gyro){
+                if(bese_gamma==0&&bese_beta==0){
+                    bese_gamma=e.gamma
+                    bese_beta=e.beta
+                }
+                mouse_x=LEN_LONG/2+((e.gamma-bese_gamma)*15)
+                mouse_y=LEN_LONG/2+((e.beta-bese_beta)*15)
+            }
+        })
+        if('ontouchstart' in window){
+            document.getElementById("gyro_btn").addEventListener("touchstart",gyroToggle,false)
+       }else{
+            document.getElementById("gyro_btn").addEventListener("mousedown",gyroToggle,false)
+        }
 
         //画像読み込み成功時
         img_bk.onload = function() {
@@ -218,7 +238,18 @@
         e.stopPropagation();
         return false;
     }
-
+    function gyroToggle(){
+        gyro=!gyro;
+        if(gyro){
+            document.getElementById("gyro_btn").style.filter="invert(100%)";
+            document.getElementById("gyro_msg").innerHTML="GYRO ON"
+        }else{
+            document.getElementById("gyro_btn").style.filter=null;
+            document.getElementById("gyro_msg").innerHTML="GYRO OFF"
+        }
+        bese_gamma=0;
+        bese_beta=0;
+    }
 
 
     function pongLoop(){
@@ -245,6 +276,9 @@
             status_score.life-=1
             calcScore()
             beep("miss")
+            if(navigator.vibrate&&gyro){
+                navigator.vibrate(500);
+            }
             cycle+=1
         }
         if(status_pong.y<_top){
@@ -266,6 +300,9 @@
                     status_pong.vec[1]=-1*Math.abs(status_pong.vec[1])
                 }
                 beep("player")
+                if(navigator.vibrate&&gyro){
+                    navigator.vibrate(30);
+                }
             }
         }
         //enemy
@@ -374,6 +411,9 @@
             status_score.life-=1
             calcScore()
             beep("miss")
+            if(navigator.vibrate&&gyro){
+                navigator.vibrate(500);
+            }
         }
         if(status_breakout.x<_top){
             status_breakout.vec[0]=Math.abs(status_breakout.vec[0])
@@ -404,6 +444,9 @@
                 status_breakout.vec[0]=vx
                 status_breakout.vec[1]=vy
                 beep("player")
+                if(navigator.vibrate&&gyro){
+                    navigator.vibrate(50);
+                }
             }
         }
 
