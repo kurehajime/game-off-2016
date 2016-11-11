@@ -89,7 +89,7 @@
        }else{
             document.getElementById("canv").addEventListener("mousedown",newGame,false)
         }
-        window.addEventListener("devicemotion",function(e){
+        window.addEventListener("deviceorientation",function(e){
             var rota_r = e.rotationRate;
             var x = 1*(rota_r.beta); //x方向
             var y = -1*(rota_r.gamma); // y方向
