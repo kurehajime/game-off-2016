@@ -144,6 +144,9 @@
             life:3,
             gameover:true,
         }
+        if(gyro){
+            status_score.life=5;
+        }
         initPong()
         initBreakout()
  
