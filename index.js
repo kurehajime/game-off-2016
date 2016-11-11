@@ -91,10 +91,10 @@
         }
         window.addEventListener("devicemotion",function(e){
             var rota_r = e.rotationRate;
-            var a = (rota_r.alpha); //z方向
-            var b = (rota_r.beta); //x方向
-            var g = (rota_r.gamma); // y方向
-            console.log(e);
+            var x = 1*(rota_r.beta); //x方向
+            var y = -1*(rota_r.gamma); // y方向
+            mouse_x=LEN_LONG/2+x
+            mouse_y=LEN_LONG/2+y
         })
 
 
