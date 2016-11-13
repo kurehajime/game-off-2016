@@ -142,6 +142,7 @@
                 status_score.breakout_score=_b|0;
             }
         }
+
     }
 
     function initParam(){
@@ -221,7 +222,7 @@
                         wait=false
                     },500)
             },400);
-
+            window.location.hash=""
         }
     }
 
@@ -240,11 +241,17 @@
 
     function tweetlog(){
         var url=document.location.href.split("#")[0];
-        var param=easyEncrypt(status_score.pong_score+","+status_score.breakout_score,"IT'S A SECRET TO EVERYBODY.");
-        var msg="PONGOUT %0D%0AMy Score :"
-            +status_score.breakout_score+" x "+ status_score.pong_score+" = "
+        var param="%23"+easyEncrypt(status_score.pong_score+","+status_score.breakout_score,"IT'S A SECRET TO EVERYBODY.");
+        var msg="PONGOUT %0D%0A"
+        var score="My Score :"+status_score.breakout_score+" x "+ status_score.pong_score+" = "
             +(status_score.pong_score*status_score.breakout_score)+" %0D%0A"
-        window.open("https://twitter.com/intent/tweet?text="+msg+url+"%23"+param+"%20%23pongout");
+        if(status_score.pong_score==0&&status_score.breakout_score==0){
+            window.open("https://twitter.com/intent/tweet?text="
+                +msg+url+param+"%20%23pongout");
+        }else{
+            window.open("https://twitter.com/intent/tweet?text="
+                +msg+score+url+param+param+"%20%23pongout");
+        }
     }
     /** 
      * マウス位置取得
