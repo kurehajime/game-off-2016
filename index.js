@@ -89,9 +89,11 @@
         }
         if('ontouchstart' in window){
             document.getElementById("canv").addEventListener("touchstart",newGame,false)
+            document.getElementById("tweet_btn").addEventListener("touchstart",tweetlog,false)
             isMobile=true;
        }else{
             document.getElementById("canv").addEventListener("mousedown",newGame,false)
+            document.getElementById("tweet_btn").addEventListener("mousedown",tweetlog,false)
         }
 
         window.addEventListener("deviceorientation",function(e){
@@ -99,7 +101,6 @@
                 return;
             }
             if(e.gamma==null){
-                document.getElementById("gyro").style.display="none";
                 gyro_disable=true;
             }
             if(gyro){
@@ -131,6 +132,16 @@
         breakoutLoop()
         drawLoop()
 
+        if(window.location.hash!=""){
+            var param=easyEncrypt(location.hash.replace("#",""),"IT'S A SECRET TO EVERYBODY.");
+            param=param.match(/\d*,\d*/)[0];
+            var _p=param.split(",")[0];
+            var _b=param.split(",")[1];
+            if(!isNaN(_p)&&!isNaN(_b)){
+                status_score.pong_score=_p|0;
+                status_score.breakout_score=_b|0;
+            }
+        }
     }
 
     function initParam(){
@@ -214,6 +225,27 @@
         }
     }
 
+    function easyEncrypt(oldstr,key){
+        var oldstr=unescape(oldstr);
+        var newstr="";
+        var keyp=0;
+        for(var i=0;i<=oldstr.length;i++){
+            var code =(oldstr.charAt(i).charCodeAt())^(key.charAt(keyp).charCodeAt()&0x0F);
+            newstr+=String.fromCharCode(code);
+            keyp++;
+            if(key.length<=keyp){keyp=0;}
+        }
+        return newstr;
+    }
+
+    function tweetlog(){
+        var url=document.location.href.split("#")[0];
+        var param=easyEncrypt(status_score.pong_score+","+status_score.breakout_score,"IT'S A SECRET TO EVERYBODY.");
+        var msg="PONGOUT %0D%0AMy Score :"
+            +status_score.breakout_score+" x "+ status_score.pong_score+" = "
+            +(status_score.pong_score*status_score.breakout_score)+" %0D%0A"
+        window.open("https://twitter.com/intent/tweet?text="+msg+url+"%23"+param+"%20%23pongout");
+    }
     /** 
      * マウス位置取得
      */
@@ -963,6 +995,8 @@
         beep("gameover")
         status_score.gameover=true;
         standby=true;
+        var param=easyEncrypt(status_score.pong_score+","+status_score.breakout_score,"IT'S A SECRET TO EVERYBODY.");
+        window.location.hash=param;
       }
       
   }
