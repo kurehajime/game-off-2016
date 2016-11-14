@@ -571,7 +571,7 @@
                 wait=true
                 setTimeout(function(){
                     wait=false
-                },500)
+                },1000)
 
                 return true;
             }
