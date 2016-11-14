@@ -228,11 +228,14 @@
 
 
     function conv2to1(num1,num2){
-        return (num1*10000000+num2)*9999991;
+        return (num1*10000000+num2)*5432191;
     }
     function conv1to2(num){
-        var num1=(num/9999991)/10000000|0;
-        var num2=(num/9999991)%10000000|0;
+        if(num%5432191!=0){
+            return [0,0];
+        }
+        var num1=(num/5432191)/10000000|0;
+        var num2=(num/5432191)%10000000|0;
         return [num1,num2];
     }
 
