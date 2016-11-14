@@ -34,10 +34,11 @@ body{
 }
 
 #foot{
-    color: #191919;
+    color: #999999;
     text-align: center;
+    font-size: 8px;
 }
 #foot a {
-    color: #191919;
+    color: #999999;
 }
 
