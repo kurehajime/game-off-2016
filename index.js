@@ -133,10 +133,10 @@
         drawLoop()
 
         if(window.location.hash!=""){
-            var param=easyEncrypt(location.hash.replace("#",""),"IT'S A SECRET TO EVERYBODY.");
-            param=param.match(/\d*,\d*/)[0];
-            var _p=param.split(",")[0];
-            var _b=param.split(",")[1];
+            var param=location.hash.replace("#","");
+            param=parseInt(param.match(/\d*/)[0]);
+            var _p=conv1to2(param)[0];
+            var _b=conv1to2(param)[1];
             if(!isNaN(_p)&&!isNaN(_b)){
                 status_score.pong_score=_p|0;
                 status_score.breakout_score=_b|0;
@@ -226,31 +226,28 @@
         }
     }
 
-    function easyEncrypt(oldstr,key){
-        var oldstr=unescape(oldstr);
-        var newstr="";
-        var keyp=0;
-        for(var i=0;i<=oldstr.length;i++){
-            var code =(oldstr.charAt(i).charCodeAt())^(key.charAt(keyp).charCodeAt()&0x0F);
-            newstr+=String.fromCharCode(code);
-            keyp++;
-            if(key.length<=keyp){keyp=0;}
-        }
-        return newstr;
+
+    function conv2to1(num1,num2){
+        return (num1*10000000+num2)*9999991;
+    }
+    function conv1to2(num){
+        var num1=(num/9999991)/10000000|0;
+        var num2=(num/9999991)%10000000|0;
+        return [num1,num2];
     }
 
     function tweetlog(){
         var url=document.location.href.split("#")[0];
-        var param="%23"+easyEncrypt(status_score.pong_score+","+status_score.breakout_score,"IT'S A SECRET TO EVERYBODY.");
+        var param="%23"+(conv2to1(status_score.pong_score,status_score.breakout_score));
         var msg="PONGOUT %0D%0A"
         var score="My Score :"+status_score.breakout_score+" x "+ status_score.pong_score+" = "
             +(status_score.pong_score*status_score.breakout_score)+" %0D%0A"
         if(status_score.pong_score==0&&status_score.breakout_score==0){
             window.open("https://twitter.com/intent/tweet?text="
-                +msg+url+param+"%20%23pongout");
+                +msg+url+"%20%23pongout");
         }else{
             window.open("https://twitter.com/intent/tweet?text="
-                +msg+score+url+param+param+"%20%23pongout");
+                +msg+score+url+param+"%20%23pongout");
         }
     }
     /** 
@@ -1002,8 +999,8 @@
         beep("gameover")
         status_score.gameover=true;
         standby=true;
-        var param=easyEncrypt(status_score.pong_score+","+status_score.breakout_score,"IT'S A SECRET TO EVERYBODY.");
-        window.location.hash=param;
+        var param=(conv2to1(status_score.pong_score,status_score.breakout_score));
+        window.location.hash=encodeURI(param);
       }
       
   }
