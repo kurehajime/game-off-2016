@@ -24,9 +24,9 @@ body{
     font-size: 8px;
     margin: 0px 15px;
 }
-#tweet{
+/*#tweet{
     display: none;
-}
+}*/
 #box{
     display: flex;
     justify-content:center;
