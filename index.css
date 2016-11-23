@@ -24,9 +24,6 @@ body{
     font-size: 8px;
     margin: 0px 15px;
 }
-/*#tweet{
-    display: none;
-}*/
 #box{
     display: flex;
     justify-content:center;
@@ -41,4 +38,3 @@ body{
 #foot a {
     color: #999999;
 }
-
