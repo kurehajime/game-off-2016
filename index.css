@@ -3,6 +3,8 @@
     width: 500px;
     margin: 0px;
     padding: 0px;
+    border-radius: 30px;
+
     /*-webkit-filter: blur(1px);
     filter: blur(1px);*/
 }
