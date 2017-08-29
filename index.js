@@ -586,6 +586,11 @@
   // play sound
   function beep (id) {
     document.getElementById(id).play()
+    if(id=="player"){
+      if(navigator.vibrate){
+        navigator.vibrate(50);
+      }
+    }
   }
 
   // loop draw
