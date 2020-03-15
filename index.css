@@ -8,6 +8,17 @@
     /*-webkit-filter: blur(1px);
     filter: blur(1px);*/
 }
+
+.miss{
+    box-shadow: 0px 0px 10px rgba(255,11,11,0.2) !important;
+}
+
+.win{
+    box-shadow: 0px 0px 10px rgba(255,255,11,0.2) !important;
+}
+
+
+
 body{
     background-color: #111111;
 }

@@ -314,6 +314,7 @@
       status_pong.x = LEN_LONG / 2
       status_score.pong_score += 1
       beep('win')
+      shadow('win')
       cycle += 1
     }
     if (status_pong.x + BALL_SIZE > LEN_LONG) {
@@ -321,6 +322,7 @@
       status_score.life -= 1
       calcScore()
       beep('miss')
+      shadow('miss')
       if (navigator.vibrate && gyro) {
         navigator.vibrate(500)
       }
@@ -452,6 +454,7 @@
       status_score.life -= 1
       calcScore()
       beep('miss')
+      shadow('miss')
       if (navigator.vibrate && gyro) {
         navigator.vibrate(500)
       }
@@ -967,6 +970,13 @@
     }
 
     return canv_message
+  }
+
+  function shadow(addClass){
+    ctx.canvas.classList.add(addClass)
+    setTimeout(() => {
+      ctx.canvas.classList.remove(addClass)
+    }, 250);
   }
 
   // calc score
